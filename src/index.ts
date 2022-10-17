@@ -28,7 +28,7 @@ async function run() {
     await sh.exec("git", ["config", "--global", "user.email", `"${core.getInput("author_email")}"`])
     await sh.exec("git", ["config", "--global", "user.name", `"${core.getInput("author_name")}"`])
     await sh.exec("git", ["status"])
-    await sh.exec("npm", ["version", releaseType, "-m", `"[skip ci] ${core.getInput("commit_message").replace("[VERSION_TYPE]", releaseType)}"`]);
+    await sh.exec("npm", ["version", releaseType, "--no-git-tag-version","-m", `"[skip ci] ${core.getInput("commit_message").replace("[VERSION_TYPE]", releaseType)}"`]);
     await sh.exec("git", ["push"]);
     await sh.exec("npm", ["publish"]);
     await sh.exec("git", ["push", "--tags"]);
